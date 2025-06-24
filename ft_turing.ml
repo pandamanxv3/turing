@@ -213,14 +213,14 @@ let rec simulate machine config step_limit =
 
 (* Fonction principale *)
 let main () =
-  printf "Starting ft_turing...\n"; flush_all ();
+  printf "Starting ft_turing...\n"; 
   let usage_msg = "usage: ft_turing [-h] jsonfile input" in
   
   (* Simple argument parsing without Arg module *)
   let args = Array.to_list Sys.argv in
   let args = List.tl args in (* Remove program name *)
   
-  printf "Arguments: %s\n" (String.concat " " args); flush_all ();
+  printf "Arguments: %s\n" (String.concat " " args);
   
   let json_file, input = match args with
     | ["-h"] | ["--help"] ->
@@ -237,22 +237,22 @@ let main () =
       exit 1 in
   
   try
-    printf "Loading machine from %s\n" json_file; flush_all ();
+    printf "Loading machine from %s\n" json_file;
     let machine = parse_machine json_file in
-    printf "Machine loaded: %s\n" machine.name; flush_all ();
-    printf "Machine states: %d\n" (List.length machine.states); flush_all ();
+    printf "Machine loaded: %s\n" machine.name;
+    printf "Machine states: %d\n" (List.length machine.states);
     validate_machine machine;
-    printf "Machine validated, displaying...\n"; flush_all ();
+    printf "Machine validated, displaying...\n";
     display_machine machine;
     
-    printf "Validating input: %s\n" input; flush_all ();
+    printf "Validating input: %s\n" input;
     validate_input machine input;
     
-    printf "Initializing tape with input: %s\n" input; flush_all ();
+    printf "Initializing tape with input: %s\n" input;
     let initial_tape = init_tape input machine.blank in
     let initial_config = { state = machine.initial; tape = initial_tape } in
     
-    printf "Starting simulation...\n"; flush_all ();
+    printf "Starting simulation...\n";
     let _ = simulate machine initial_config 1000 in
     ()
   with

@@ -1,160 +1,28 @@
 {
-    "name": "unary_sub",
-    "alphabet": [
-        "1",
-        ".",
-        "-",
-        "="
-    ],
-    "blank": ".",
-    "states": [
-        "start",
-        "findop",
-        "eraseright",
-        "findleft",
-        "eraseleft",
-        "restart",
-        "cleanup",
-        "HALT"
-    ],
-    "initial": "start",
-    "finals": [
-        "HALT"
-    ],
-    "transitions": {
-        "start": [
-            {
-                "read": "1",
-                "to_state": "findop",
-                "write": "1",
-                "action": "RIGHT"
-            },
-            {
-                "read": ".",
-                "to_state": "findop",
-                "write": ".",
-                "action": "RIGHT"
-            },
-            {
-                "read": "-",
-                "to_state": "findop",
-                "write": "=",
-                "action": "RIGHT"
-            },
-            {
-                "read": "=",
-                "to_state": "findop",
-                "write": "=",
-                "action": "RIGHT"
-            }
-        ],
-        "findop": [
-            {
-                "read": "1",
-                "to_state": "findop",
-                "write": "1",
-                "action": "RIGHT"
-            },
-            {
-                "read": "-",
-                "to_state": "eraseright",
-                "write": "=",
-                "action": "RIGHT"
-            },
-            {
-                "read": "=",
-                "to_state": "eraseright",
-                "write": "=",
-                "action": "RIGHT"
-            },
-            {
-                "read": ".",
-                "to_state": "cleanup",
-                "write": ".",
-                "action": "LEFT"
-            }
-        ],
-        "eraseright": [
-            {
-                "read": "1",
-                "to_state": "findleft",
-                "write": ".",
-                "action": "LEFT"
-            },
-            {
-                "read": ".",
-                "to_state": "cleanup",
-                "write": ".",
-                "action": "LEFT"
-            }
-        ],
-        "findleft": [
-            {
-                "read": "=",
-                "to_state": "eraseleft",
-                "write": "=",
-                "action": "LEFT"
-            },
-            {
-                "read": "1",
-                "to_state": "findleft",
-                "write": "1",
-                "action": "LEFT"
-            }
-        ],
-        "eraseleft": [
-            {
-                "read": "1",
-                "to_state": "restart",
-                "write": ".",
-                "action": "RIGHT"
-            },
-            {
-                "read": ".",
-                "to_state": "eraseleft",
-                "write": ".",
-                "action": "LEFT"
-            }
-        ],
-        "restart": [
-            {
-                "read": ".",
-                "to_state": "restart",
-                "write": ".",
-                "action": "RIGHT"
-            },
-            {
-                "read": "1",
-                "to_state": "restart",
-                "write": "1",
-                "action": "RIGHT"
-            },
-            {
-                "read": "=",
-                "to_state": "eraseright",
-                "write": "=",
-                "action": "RIGHT"
-            }
-        ],
-        "cleanup": [
-            {
-                "read": "=",
-                "to_state": "HALT",
-                "write": ".",
-                "action": "LEFT"
-            },
-            {
-                "read": "1",
-                "to_state": "cleanup",
-                "write": ".",
-                "action": "LEFT"
-            },
-            {
-                "read": ".",
-                "to_state": "cleanup",
-                "write": ".",
-                "action": "LEFT"
-            }
-        ]
-    }
+"name" : "unary_sub",
+"alphabet": [ "1", ".", "-", "=" ],
+"blank" : ".",
+"states" : [ "scanright", "eraseone", "subone", "skip", "HALT" ],
+"initial" : "scanright",
+"finals" : [ "HALT" ],
+"transitions" : {
+"scanright": [
+{ "read" : ".", "to_state": "scanright", "write": ".", "action": "RIGHT"},
+{ "read" : "1", "to_state": "scanright", "write": "1", "action": "RIGHT"},
+{ "read" : "-", "to_state": "scanright", "write": "-", "action": "RIGHT"},
+{ "read" : "=", "to_state": "eraseone" , "write": ".", "action": "LEFT" }
+],
+"eraseone": [
+{ "read" : "1", "to_state": "subone", "write": "=", "action": "LEFT"},
+{ "read" : "-", "to_state": "HALT" , "write": ".", "action": "LEFT"}
+],
+"subone": [
+{ "read" : "1", "to_state": "subone", "write": "1", "action": "LEFT"},
+{ "read" : "-", "to_state": "skip" , "write": "-", "action": "LEFT"}
+],
+"skip": [
+{ "read" : ".", "to_state": "skip" , "write": ".", "action": "LEFT"},
+{ "read" : "1", "to_state": "scanright", "write": ".", "action": "RIGHT"}
+]
+}
 }
