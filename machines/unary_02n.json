@@ -1,0 +1,104 @@
+{
+    "name": "02n",
+    "alphabet": [
+        "0",
+        "1",
+        ".",
+        "y",
+        "n"
+    ],
+    "blank": ".",
+    "states": [
+        "even",
+        "odd",
+        "accept",
+        "reject",
+        "HALT"
+    ],
+    "initial": "even",
+    "finals": [
+        "HALT"
+    ],
+    "transitions": {
+        "even": [
+            {
+                "read": "0",
+                "to_state": "odd",
+                "write": "0",
+                "action": "RIGHT"
+            },
+            {
+                "read": ".",
+                "to_state": "accept",
+                "write": ".",
+                "action": "RIGHT"
+            },
+            {
+                "read": "1",
+                "to_state": "reject",
+                "write": "1",
+                "action": "RIGHT"
+            }
+        ],
+        "odd": [
+            {
+                "read": "0",
+                "to_state": "even",
+                "write": "0",
+                "action": "RIGHT"
+            },
+            {
+                "read": ".",
+                "to_state": "reject",
+                "write": ".",
+                "action": "RIGHT"
+            },
+            {
+                "read": "1",
+                "to_state": "reject",
+                "write": "1",
+                "action": "RIGHT"
+            }
+        ],
+        "accept": [
+            {
+                "read": ".",
+                "to_state": "HALT",
+                "write": "y",
+                "action": "LEFT"
+            },
+            {
+                "read": "y",
+                "to_state": "HALT",
+                "write": "y",
+                "action": "LEFT"
+            }
+        ],
+        "reject": [
+            {
+                "read": ".",
+                "to_state": "HALT",
+                "write": "n",
+                "action": "LEFT"
+            },
+            {
+                "read": "n",
+                "to_state": "HALT",
+                "write": "n",
+                "action": "LEFT"
+            },
+            {
+                "read": "0",
+                "to_state": "reject",
+                "write": "0",
+                "action": "RIGHT"
+            },
+            {
+                "read": "1",
+                "to_state": "reject",
+                "write": "1",
+                "action": "RIGHT"
+            }
+        ]
+    }
+}
