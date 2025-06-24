@@ -1,1 +1,0 @@
-{"name":"test","alphabet":[".","."],"blank":".","states":["start","HALT"],"initial":"start","finals":["HALT"],"transitions":{"start":[{"read":".","to_state":"HALT","write":".","action":"RIGHT"}]}}
