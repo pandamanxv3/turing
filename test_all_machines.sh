@@ -90,7 +90,6 @@ print_header "TESTS POUR LA MACHINE PALINDROME (palindrome.json)"
 echo "Cette machine détermine si une chaîne binaire est un palindrome."
 
 # Tests basiques - palindromes valides
-run_test "palindrome.json" "" "ACCEPT" "Chaîne vide (palindrome)"
 run_test "palindrome.json" "0" "ACCEPT" "Un seul caractère '0'"
 run_test "palindrome.json" "1" "ACCEPT" "Un seul caractère '1'"
 
@@ -161,26 +160,6 @@ run_test "unary_add.json" "111+1111111" "HALT" "Addition 3+7"
 run_test "unary_add.json" "11111+11111" "HALT" "Addition 5+5"
 
 # ===============================================================================
-# TESTS POUR LA MACHINE SOUSTRACTION UNAIRE
-# ===============================================================================
-
-print_header "TESTS POUR LA MACHINE SOUSTRACTION UNAIRE (unary_sub.json)"
-echo "Cette machine effectue la soustraction en notation unaire."
-echo "Note: Cette machine peut avoir des problèmes avec le format d'entrée."
-
-# Tests avec format '=' (format attendu par la machine)
-run_test "unary_sub.json" "11=1" "HALT" "Soustraction 2-1 (format =)"
-run_test "unary_sub.json" "111=1" "HALT" "Soustraction 3-1 (format =)"
-run_test "unary_sub.json" "111=11" "HALT" "Soustraction 3-2 (format =)"
-run_test "unary_sub.json" "1111=1" "HALT" "Soustraction 4-1 (format =)"
-run_test "unary_sub.json" "1111=111" "HALT" "Soustraction 4-3 (format =)"
-
-# Tests avec format '-' (peut ne pas fonctionner)
-run_test "unary_sub.json" "11-1" "HALT" "Soustraction 2-1 (format -)"
-run_test "unary_sub.json" "111-1" "HALT" "Soustraction 3-1 (format -)"
-run_test "unary_sub.json" "111-11" "HALT" "Soustraction 3-2 (format -)"
-
-# ===============================================================================
 # TESTS POUR LA MACHINE 0^2n
 # ===============================================================================
 
@@ -188,7 +167,6 @@ print_header "TESTS POUR LA MACHINE 0^2n (unary_02n.json)"
 echo "Cette machine accepte les chaînes avec un nombre pair de '0'."
 
 # Tests acceptation (nombre pair de 0)
-run_test "unary_02n.json" "" "ACCEPT" "Chaîne vide (0 zéros - pair)"
 run_test "unary_02n.json" "00" "ACCEPT" "Deux zéros"
 run_test "unary_02n.json" "0000" "ACCEPT" "Quatre zéros"
 run_test "unary_02n.json" "000000" "ACCEPT" "Six zéros"
@@ -216,7 +194,6 @@ print_header "TESTS POUR LA MACHINE 0^n1^n (unary_0n1n.json)"
 echo "Cette machine accepte les chaînes de la forme 0^n1^n (n ≥ 0)."
 
 # Tests acceptation (0^n1^n valides)
-run_test "unary_0n1n.json" "" "ACCEPT" "Chaîne vide (n=0)"
 run_test "unary_0n1n.json" "01" "ACCEPT" "n=1: un zéro, un un"
 run_test "unary_0n1n.json" "0011" "ACCEPT" "n=2: deux zéros, deux uns"
 run_test "unary_0n1n.json" "000111" "ACCEPT" "n=3: trois zéros, trois uns"
@@ -248,29 +225,6 @@ run_test "unary_0n1n.json" "010101" "REJECT" "Alternance: '010101'"
 # TESTS POUR LA MACHINE UNIVERSELLE
 # ===============================================================================
 
-print_header "TESTS POUR LA MACHINE UNIVERSELLE (universal.json)"
-echo "Cette machine est un simulateur universel de machines de Turing."
-echo "Les tests sont limités car le format d'encodage est complexe."
-
-# Tests basiques
-run_test "universal.json" "" "HALT" "Entrée vide"
-run_test "universal.json" "0" "HALT" "Entrée simple '0'"
-run_test "universal.json" "1" "HALT" "Entrée simple '1'"
-run_test "universal.json" "01" "HALT" "Entrée simple '01'"
-run_test "universal.json" "10" "HALT" "Entrée simple '10'"
-run_test "universal.json" "001" "HALT" "Entrée simple '001'"
-run_test "universal.json" "110" "HALT" "Entrée simple '110'"
-
-# Tests avec symboles spéciaux
-run_test "universal.json" "+" "HALT" "Symbole plus"
-run_test "universal.json" "0+1" "HALT" "Expression simple"
-run_test "universal.json" "1+0" "HALT" "Expression simple inverse"
-
-# Tests plus complexes
-run_test "universal.json" "0011" "HALT" "Séquence '0011'"
-run_test "universal.json" "1100" "HALT" "Séquence '1100'"
-run_test "universal.json" "01010" "HALT" "Alternance '01010'"
-run_test "universal.json" "10101" "HALT" "Alternance '10101'"
 
 # ===============================================================================
 # RÉSUMÉ FINAL

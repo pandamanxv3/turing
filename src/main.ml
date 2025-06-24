@@ -18,7 +18,11 @@ let main () =
       printf "optional arguments:\n";
       printf "  -h, --help  show this help message and exit\n";
       exit 0
-    | [jf; inp] -> (jf, inp)
+    | [jf; inp] when String.length inp > 0 -> (jf, inp)
+    | [jf; ""] ->
+      printf "Error: Input cannot be empty. Please provide a valid input string.\n";
+      printf "%s\n" usage_msg;
+      exit 1
     | _ ->
       printf "%s\n" usage_msg;
       exit 1 in
