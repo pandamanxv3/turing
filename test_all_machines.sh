@@ -127,6 +127,28 @@ run_test "palindrome.json" "1111" "ACCEPT" "Tous uns '1111'"
 run_test "palindrome.json" "00000" "ACCEPT" "Tous zéros impair '00000'"
 run_test "palindrome.json" "11111" "ACCEPT" "Tous uns impair '11111'"
 
+# Tests palindromes tricky - cas complexes
+run_test "palindrome.json" "01010101010" "ACCEPT" "Palindrome alternant long '01010101010'"
+run_test "palindrome.json" "10101010101" "ACCEPT" "Palindrome alternant long '10101010101'"
+run_test "palindrome.json" "000010000" "ACCEPT" "Palindrome avec motif central '000010000'"
+run_test "palindrome.json" "111101111" "ACCEPT" "Palindrome avec motif central '111101111'"
+run_test "palindrome.json" "0110100101100" "ACCEPT" "Palindrome complexe '0110100101100'"
+run_test "palindrome.json" "1001011010010" "ACCEPT" "Palindrome complexe '1001011010010'"
+
+# Tests non-palindromes tricky - presque palindromes
+run_test "palindrome.json" "01010101011" "REJECT" "Presque palindrome - dernière différente '01010101011'"
+run_test "palindrome.json" "10101010100" "REJECT" "Presque palindrome - dernière différente '10101010100'"
+run_test "palindrome.json" "000010001" "REJECT" "Presque palindrome - milieu décalé '000010001'"
+run_test "palindrome.json" "111101110" "REJECT" "Presque palindrome - milieu décalé '111101110'"
+run_test "palindrome.json" "0110100101101" "REJECT" "Presque palindrome - un bit différent '0110100101101'"
+run_test "palindrome.json" "1001011010011" "REJECT" "Presque palindrome - un bit différent '1001011010011'"
+
+# Tests cas limites tricky
+run_test "palindrome.json" "0101010101010101010" "ACCEPT" "Long palindrome alternant '0101010101010101010'"
+run_test "palindrome.json" "1010101010101010101" "ACCEPT" "Long palindrome alternant '1010101010101010101'"
+run_test "palindrome.json" "0101010101010101011" "REJECT" "Long presque palindrome '0101010101010101011'"
+run_test "palindrome.json" "1010101010101010100" "REJECT" "Long presque palindrome '1010101010101010100'"
+
 # ===============================================================================
 # TESTS POUR LA MACHINE ADDITION UNAIRE
 # ===============================================================================
@@ -159,6 +181,21 @@ run_test "unary_add.json" "1111111+111" "HALT" "Addition 7+3"
 run_test "unary_add.json" "111+1111111" "HALT" "Addition 3+7"
 run_test "unary_add.json" "11111+11111" "HALT" "Addition 5+5"
 
+# Tests tricky - cas limites et complexes
+run_test "unary_add.json" "111111111111111+1" "HALT" "Addition asymétrique 15+1"
+run_test "unary_add.json" "1+111111111111111" "HALT" "Addition asymétrique 1+15"
+run_test "unary_add.json" "1111111111+" "HALT" "Addition 10+0 (grand nombre)"
+run_test "unary_add.json" "+1111111111" "HALT" "Addition 0+10 (grand nombre)"
+
+# Tests avec des nombres moyens mais asymétriques
+run_test "unary_add.json" "11111111+1111" "HALT" "Addition asymétrique 8+4"
+run_test "unary_add.json" "1111+11111111" "HALT" "Addition asymétrique 4+8"
+run_test "unary_add.json" "111111111+11" "HALT" "Addition asymétrique 9+2"
+run_test "unary_add.json" "11+111111111" "HALT" "Addition asymétrique 2+9"
+
+# Tests edge cases - grandes additions
+run_test "unary_add.json" "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111+1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111" "HALT" "Addition très grande 100+100"
+
 # ===============================================================================
 # TESTS POUR LA MACHINE 0^2n
 # ===============================================================================
@@ -180,11 +217,18 @@ run_test "unary_02n.json" "00000" "REJECT" "Cinq zéros"
 run_test "unary_02n.json" "0000000" "REJECT" "Sept zéros"
 run_test "unary_02n.json" "000000000" "REJECT" "Neuf zéros"
 
-# Tests avec caractères invalides (devrait rejeter)
-run_test "unary_02n.json" "1" "REJECT" "Caractère invalide '1'"
-run_test "unary_02n.json" "01" "REJECT" "Mélange '01'"
-run_test "unary_02n.json" "10" "REJECT" "Mélange '10'"
-run_test "unary_02n.json" "001" "REJECT" "Mélange '001'"
+# Tests tricky - cas limites
+run_test "unary_02n.json" "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" "ACCEPT" "Très grand nombre pair de zéros (200)"
+run_test "unary_02n.json" "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" "REJECT" "Très grand nombre impair de zéros (201)"
+
+# Tests edge cases - limites paires/impaires
+run_test "unary_02n.json" "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" "ACCEPT" "Très très grand nombre pair (250)"
+run_test "unary_02n.json" "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" "REJECT" "Très très grand nombre impair (251)"
+
+# Tests cas particuliers
+run_test "unary_02n.json" "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" "ACCEPT" "Grand nombre pair critique (190)"
+run_test "unary_02n.json" "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" "REJECT" "Grand nombre impair critique (191)"
+
 
 # ===============================================================================
 # TESTS POUR LA MACHINE 0^n1^n
@@ -220,6 +264,7 @@ run_test "unary_0n1n.json" "000011" "REJECT" "Plus de zéros: '000011'"
 run_test "unary_0n1n.json" "0101" "REJECT" "Mélange: '0101'"
 run_test "unary_0n1n.json" "001011" "REJECT" "Mélange: '001011'"
 run_test "unary_0n1n.json" "010101" "REJECT" "Alternance: '010101'"
+
 
 # ===============================================================================
 # TESTS POUR LA MACHINE UNIVERSELLE

@@ -15,13 +15,10 @@
         "check_0",
         "check_1",
         "find_left",
-        "find_right",
         "match_0",
         "match_1",
-        "accept_state",
-        "reject_state",
-        "find_end_accept",
-        
+        "q_accept",
+        "q_reject",
         "print",
         "HALT"
     ],
@@ -57,7 +54,7 @@
             },
             {
                 "read": ".",
-                "to_state": "find_end_accept",
+                "to_state": "q_accept",
                 "write": ".",
                 "action": "LEFT"
             }
@@ -135,7 +132,7 @@
             },
             {
                 "read": "1",
-                "to_state": "find_end_reject",
+                "to_state": "q_reject",
                 "write": "1",
                 "action": "RIGHT"
             },
@@ -153,9 +150,9 @@
             },
             {
                 "read": ".",
-                "to_state": "find_end_accept",
+                "to_state": "q_accept",
                 "write": ".",
-                "action": "LEFT"
+                "action": "RIGHT"
             }
         ],
         "match_1": [
@@ -167,7 +164,7 @@
             },
             {
                 "read": "0",
-                "to_state": "find_end_reject",
+                "to_state": "q_reject",
                 "write": "0",
                 "action": "RIGHT"
             },
@@ -185,9 +182,9 @@
             },
             {
                 "read": ".",
-                "to_state": "find_end_accept",
+                "to_state": "q_accept",
                 "write": ".",
-                "action": "LEFT"
+                "action": "RIGHT"
             }
         ],
         "find_left": [
@@ -222,124 +219,28 @@
                 "action": "RIGHT"
             }
         ],
-        "accept_state": [
+        "q_accept": [
             {
                 "read": "0",
-                "to_state": "reject_state",
+                "to_state": "q_reject",
                 "write": "0",
                 "action": "RIGHT"
             },
             {
                 "read": "1",
-                "to_state": "reject_state",
+                "to_state": "q_reject",
                 "write": "1",
                 "action": "RIGHT"
             },
             {
                 "read": "X",
-                "to_state": "accept_state",
+                "to_state": "q_accept",
                 "write": "X",
                 "action": "RIGHT"
             },
             {
                 "read": "Y",
-                "to_state": "accept_state",
-                "write": "Y",
-                "action": "RIGHT"
-            },
-            {
-                "read": ".",
-                "to_state": "print",
-                "write": "n",
-                "action": "RIGHT"
-            }
-        ],
-        "reject_state": [
-            {
-                "read": "0",
-                "to_state": "reject_state",
-                "write": "0",
-                "action": "RIGHT"
-            },
-            {
-                "read": "1",
-                "to_state": "reject_state",
-                "write": "1",
-                "action": "RIGHT"
-            },
-            {
-                "read": "X",
-                "to_state": "reject_state",
-                "write": "X",
-                "action": "RIGHT"
-            },
-            {
-                "read": "Y",
-                "to_state": "reject_state",
-                "write": "Y",
-                "action": "RIGHT"
-            },
-            {
-                "read": ".",
-                "to_state": "print",
-                "write": "n",
-                "action": "LEFT"
-            }
-        ],
-        "find_end_reject": [
-            {
-                "read": "0",
-                "to_state": "find_end_reject",
-                "write": "0",
-                "action": "RIGHT"
-            },
-            {
-                "read": "1",
-                "to_state": "find_end_reject",
-                "write": "1",
-                "action": "RIGHT"
-            },
-            {
-                "read": "X",
-                "to_state": "find_end_reject",
-                "write": "X",
-                "action": "RIGHT"
-            },
-            {
-                "read": "Y",
-                "to_state": "find_end_reject",
-                "write": "Y",
-                "action": "RIGHT"
-            },
-            {
-                "read": ".",
-                "to_state": "print",
-                "write": "n",
-                "action": "RIGHT"
-            }
-        ],
-        "find_end_accept": [
-            {
-                "read": "0",
-                "to_state": "find_end_accept",
-                "write": "0",
-                "action": "RIGHT"
-            },
-            {
-                "read": "1",
-                "to_state": "find_end_accept",
-                "write": "1",
-                "action": "RIGHT"
-            },
-            {
-                "read": "X",
-                "to_state": "find_end_accept",
-                "write": "X",
-                "action": "RIGHT"
-            },
-            {
-                "read": "Y",
-                "to_state": "find_end_accept",
+                "to_state": "q_accept",
                 "write": "Y",
                 "action": "RIGHT"
             },
@@ -347,6 +248,38 @@
                 "read": ".",
                 "to_state": "print",
                 "write": "y",
+                "action": "RIGHT"
+            }
+        ],
+        "q_reject": [
+            {
+                "read": "0",
+                "to_state": "q_reject",
+                "write": "0",
+                "action": "RIGHT"
+            },
+            {
+                "read": "1",
+                "to_state": "q_reject",
+                "write": "1",
+                "action": "RIGHT"
+            },
+            {
+                "read": "X",
+                "to_state": "q_reject",
+                "write": "X",
+                "action": "RIGHT"
+            },
+            {
+                "read": "Y",
+                "to_state": "q_reject",
+                "write": "Y",
+                "action": "RIGHT"
+            },
+            {
+                "read": ".",
+                "to_state": "print",
+                "write": "n",
                 "action": "RIGHT"
             }
         ],
