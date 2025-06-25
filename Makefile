@@ -8,7 +8,7 @@ PACKAGES = yojson
 SRC_DIR = src
 BUILD_DIR = build
 
-ML_FILES = types.ml parsing.ml validation.ml execution.ml main.ml
+ML_FILES = types.ml parsing.ml validation.ml display.ml execution.ml main.ml
 ML_PATHS = $(addprefix $(SRC_DIR)/,$(ML_FILES))
 CMX_FILES = $(patsubst $(SRC_DIR)/%.ml,$(BUILD_DIR)/%.cmx,$(ML_PATHS))
 CMO_FILES = $(patsubst $(SRC_DIR)/%.ml,$(BUILD_DIR)/%.cmo,$(ML_PATHS))
